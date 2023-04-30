@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReceiptLineData {
-  public static final String TYPE_TXT = "text";
-  public static final String TYPE_IMG = "image";
+  public static final String TYPE_TXT = "string";
+  public static final String TYPE_IMG = "img/png";
 
   private String type;
   private String content;

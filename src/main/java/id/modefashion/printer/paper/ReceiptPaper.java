@@ -19,7 +19,10 @@ public class ReceiptPaper extends Paper {
             Font font = new Font(config.getString("font.family"), Font.PLAIN, config.getInt("font.size"));
             FontMetrics metrics = new FontMetrics(font) {
             };
-            height = totalLine * metrics.getHeight();
+            logger.info("fontHeight: {}", metrics.getHeight());
+            height = totalLine * config.getInt("font.line.height");
+            height += config.getDouble("paper.margin.top") * config.getInt("printer.dpi")*2;
+            height += config.getDouble("paper.margin.bottom") * config.getInt("printer.dpi")*2;
         }
         logger.info("paper width: {}, paper height: {}", width, height);
         setSize(width, height);
