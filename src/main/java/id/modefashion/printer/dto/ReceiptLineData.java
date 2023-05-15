@@ -8,6 +8,7 @@ import lombok.Data;
 public class ReceiptLineData {
   public static final String TYPE_TXT = "string";
   public static final String TYPE_IMG = "img/png";
+  public static final String TYPE_BARCODE = "barcode";
 
   private String type;
   private String content;
