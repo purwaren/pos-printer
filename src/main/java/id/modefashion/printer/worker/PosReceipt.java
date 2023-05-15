@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import id.modefashion.printer.dto.ReceiptLineData;
 
 public class PosReceipt implements Printable {
-  private static final Logger logger = LoggerFactory.getLogger(PosReceipt.class); 
+  private static final Logger logger = LoggerFactory.getLogger(PosReceipt.class);
   private List<ReceiptLineData> data;
   PropertiesConfiguration config;
 
@@ -52,7 +52,7 @@ public class PosReceipt implements Printable {
     int y = (int) pf.getImageableY();
     logger.info("before print, x: {}, y: {}", x, y);
     logger.info("lineHeight from g2d: {}", lineHeight);
-    int i=0;
+    int i = 0;
     for (ReceiptLineData line : this.data) {
       System.out.printf("%d: %s\n", i++, line.getContent());
       if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_TXT)) {
@@ -68,13 +68,13 @@ public class PosReceipt implements Printable {
         } else {
           img = Base64.getDecoder().decode(line.getContent());
         }
-        
+
         try {
           BufferedImage buff = ImageIO.read(new ByteArrayInputStream(img));
           Image image = Toolkit.getDefaultToolkit().createImage(buff.getSource());
-          ImageObserver ob = new BarcodeObserver();       
-          g2d.drawImage(image, x, y, (int) pf.getImageableWidth()-10, buff.getHeight(), ob);
-          y += buff.getHeight();
+          ImageObserver ob = new BarcodeObserver();
+          g2d.drawImage(image, x, y, (int) pf.getImageableWidth() - 10, buff.getHeight(), ob);
+          y += buff.getHeight() + 10;
         } catch (IOException e) {
           e.printStackTrace();
         }
