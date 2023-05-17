@@ -78,6 +78,9 @@ public class PosReceipt implements Printable {
         } catch (IOException e) {
           e.printStackTrace();
         }
+      } else if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_BARCODE)) {
+        // do print with barcode libary in here
+        y += lineHeight;
       } else {
         g2d.drawString(line.getContent(), x, y);
         y += lineHeight;
