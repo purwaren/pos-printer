@@ -47,13 +47,13 @@ public class PrintServer extends WebSocketServer {
     logger.info("Received message");
     Type listType = new TypeToken<List<ReceiptLineData>>() {
     }.getType();
-    if (message.contains("#")) {
-      String data_string = message;
-      ReceiptWorkerString worker = new ReceiptWorkerString(data_string, this.config);
-      worker.proceed();
-    } else {
+    if (message.contains("type")) {
       List<ReceiptLineData> data = new Gson().fromJson(message, listType);
       ReceiptWorker worker = new ReceiptWorker(data, this.config);
+      worker.proceed();
+    } else {
+      String data_string = message;
+      ReceiptWorkerString worker = new ReceiptWorkerString(data_string, this.config);
       worker.proceed();
     }
     // sendResponse("Success");
