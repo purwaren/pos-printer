@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import id.modefashion.printer.dto.ReceiptLineData;
+import id.modefashion.printer.paper.ReceiptPaper;
+import id.modefashion.printer.util.Helper;
+
+import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
@@ -24,9 +28,13 @@ public class ReceiptWorker {
   public void proceed() {
     PrinterJob job = PrinterJob.getPrinterJob();
     try {
+      job.setPrintService(Helper.findPrinterByName(config.getString("printer.name")));
+      PageFormat pf = job.defaultPage();
+      pf.setOrientation(config.getInt("paper.orientation"));
       int totalLine = data.size();
       logger.info("totalLine: {}", totalLine);
-      job.setPrintable(new PosReceipt(data, config));
+      pf.setPaper(new ReceiptPaper(config, totalLine));
+      job.setPrintable(new PosReceipt(data, config), pf);
       job.print();
     } catch (PrinterException e) {
       e.printStackTrace();
