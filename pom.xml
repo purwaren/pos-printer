@@ -9,6 +9,13 @@
   <name>mpos-printer</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+
+    <dependency>
+      <groupId>com.github.anastaciocintra</groupId>
+      <artifactId>escpos-coffee</artifactId>
+      <version>4.1.0</version>
+    </dependency>
+
     <dependency>
       <groupId>com.google.zxing</groupId>
       <artifactId>core</artifactId>
