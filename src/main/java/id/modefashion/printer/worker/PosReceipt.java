@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
+import com.github.anastaciocintra.escpos.Style;
+import com.github.anastaciocintra.escpos.Style.FontName;
 import com.github.anastaciocintra.escpos.barcode.BarCode;
 import com.github.anastaciocintra.output.PrinterOutputStream;
 
@@ -49,12 +51,18 @@ public class PosReceipt implements Printable {
     try {
       escpos = new EscPos(new PrinterOutputStream(printService));
 
+      String font = config.getString("font.family");
+      String fontSize = config.getString("font.size");
+      Style title = new Style()
+          .setFontSize(Style.FontSize.valueOf(fontSize), Style.FontSize.valueOf(fontSize))
+          .setFontName(FontName.valueOf(font));
+
       for (int i = 0; i < data.size() - 1; i++) {
         ReceiptLineData line = data.get(i);
         logger.info("line: {}", line.getContent());
         if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_TXT)) {
           // do print with text
-          escpos.writeLF(line.getContent());
+          escpos.writeLF(title, line.getContent());
         } else if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_IMG)) {
           logger.info("base64 contain meta-data image but skipped");
         } else if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_BARCODE)) {
@@ -74,7 +82,7 @@ public class PosReceipt implements Printable {
       }
 
       escpos.feed(5);
-      escpos.cut(EscPos.CutMode.PART);
+      escpos.cut(EscPos.CutMode.FULL);
       escpos.close();
     } catch (Exception e) {
       e.printStackTrace();
