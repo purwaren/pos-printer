@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import id.modefashion.printer.dto.ReceiptLineData;
 import id.modefashion.printer.worker.ReceiptWorker;
+import id.modefashion.printer.worker.ReceiptWorkerString;
 
 public class PrintServer extends WebSocketServer {
   private Set<WebSocket> connections;
@@ -49,6 +50,10 @@ public class PrintServer extends WebSocketServer {
     if (message.contains("type")) {
       List<ReceiptLineData> data = new Gson().fromJson(message, listType);
       ReceiptWorker worker = new ReceiptWorker(data, this.config);
+      worker.proceed();
+    } else {
+      String dataString = message;
+      ReceiptWorkerString worker = new ReceiptWorkerString(dataString, this.config);
       worker.proceed();
     }
     sendResponse("Success");

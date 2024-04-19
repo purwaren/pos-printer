@@ -46,10 +46,8 @@ public class PosReceipt implements Printable {
     }
 
     PrintService printService = PrinterOutputStream.getPrintServiceByName(config.getString("printer.name"));
-    EscPos escpos;
 
-    try {
-      escpos = new EscPos(new PrinterOutputStream(printService));
+    try (EscPos escpos = new EscPos(new PrinterOutputStream(printService))) {
 
       String font = config.getString("font.family");
       String fontSize = config.getString("font.size");
@@ -83,7 +81,6 @@ public class PosReceipt implements Printable {
 
       escpos.feed(5);
       escpos.cut(EscPos.CutMode.FULL);
-      escpos.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
