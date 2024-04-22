@@ -32,8 +32,8 @@ public class ReceiptWorker {
       PageFormat pf = job.defaultPage();
       int totalLine = data.size();
       logger.info("totalLine: {}", totalLine);
-      job.setPrintable(new PosReceipt(data, config), pf);
-      job.print();
+      PosReceipt printable = new PosReceipt(data, config);
+      printable.print(null, pf, 0);
     } catch (PrinterException e) {
       e.printStackTrace();
     }

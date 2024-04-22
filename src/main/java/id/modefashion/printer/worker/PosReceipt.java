@@ -55,7 +55,7 @@ public class PosReceipt implements Printable {
           .setFontSize(Style.FontSize.valueOf(fontSize), Style.FontSize.valueOf(fontSize))
           .setFontName(FontName.valueOf(font));
 
-      for (int i = 0; i < data.size() - 1; i++) {
+      for (int i = 0; i < data.size(); i++) {
         ReceiptLineData line = data.get(i);
         logger.info("line: {}", line.getContent());
         if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_TXT)) {

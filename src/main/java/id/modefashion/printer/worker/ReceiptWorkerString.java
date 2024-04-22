@@ -29,11 +29,8 @@ public class ReceiptWorkerString {
       PageFormat pf = job.defaultPage();
       int totalLine = data.split("#").length;
       logger.info("totalLine: {}", totalLine);
-      // Memanggil constructor PosReceiptString di sini
       PosReceiptString printable = new PosReceiptString(data, config);
-      job.setPrintable(printable, pf);
-      // Panggil job.print() di sini
-      job.print();
+      printable.print(null, pf, 0);
     } catch (PrinterException e) {
       e.printStackTrace();
     }
