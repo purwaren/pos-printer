@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.util.List;
 
 import javax.print.PrintService;
@@ -48,7 +49,7 @@ public class PosReceipt implements Printable {
     PrintService printService = PrinterOutputStream.getPrintServiceByName(config.getString("printer.name"));
 
     try (EscPos escpos = new EscPos(new PrinterOutputStream(printService))) {
-
+      myOpenCashDrawer(escpos);
       String font = config.getString("font.family");
       String fontSize = config.getString("font.size");
       Style title = new Style()
@@ -73,7 +74,6 @@ public class PosReceipt implements Printable {
           escpos.write(barcode, line.getContent());
           barcode.setBarCodeSize(3, 100);
           escpos.feed(1);
-
         } else {
           logger.info("unknown type");
         }
@@ -88,5 +88,9 @@ public class PosReceipt implements Printable {
     logger.info("END PRINTER CALL");
 
     return PAGE_EXISTS;
+  }
+
+  public void myOpenCashDrawer(EscPos escPos) throws IOException {
+    escPos.write(27).write(112).write(0).write(25).write(250);
   }
 }

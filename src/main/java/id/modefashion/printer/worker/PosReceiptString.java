@@ -3,6 +3,8 @@ package id.modefashion.printer.worker;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.io.IOException;
+
 import javax.print.PrintService;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
@@ -32,7 +34,7 @@ public class PosReceiptString implements Printable {
     PrintService printService = PrinterOutputStream.getPrintServiceByName(config.getString("printer.name"));
 
     try (EscPos escpos = new EscPos(new PrinterOutputStream(printService))) {
-
+      myOpenCashDrawer(escpos);
       String font = config.getString("font.family");
       String fontSize = config.getString("font.size");
       Style title = new Style().setFontSize(Style.FontSize.valueOf(fontSize),
@@ -54,5 +56,9 @@ public class PosReceiptString implements Printable {
 
     logger.info("END PRINTER CALL");
     return PAGE_EXISTS;
+  }
+
+  public void myOpenCashDrawer(EscPos escPos) throws IOException {
+    escPos.write(27).write(112).write(0).write(25).write(250);
   }
 }
