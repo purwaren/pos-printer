@@ -3,6 +3,7 @@ package id.modefashion.printer.gui;
 import id.modefashion.printer.PrintServer;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import id.modefashion.printer.util.Helper;
 
 public class PrintServerController {
     private PrintServer server;
@@ -14,6 +15,11 @@ public class PrintServerController {
         if (running) return false;
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(configFile);
+            String printerName = config.getString("printer.name");
+            if (Helper.findPrinterByName(printerName) == null) {
+                System.err.println("Printer not found: " + printerName);
+                return false;
+            }
             server = new PrintServer(config);
             serverThread = new Thread(() -> {
                 server.start();

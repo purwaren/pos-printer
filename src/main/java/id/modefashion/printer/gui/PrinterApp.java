@@ -21,12 +21,21 @@ public class PrinterApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         serverController = new PrintServerController();
-        // Register log appender
+
+        // Log area
+        logArea = new TextArea();
+        logArea.setEditable(false);
+        logArea.setWrapText(true);
+        logArea.setPrefHeight(400);
+        logArea.setStyle("-fx-font-family: 'monospaced', 'Consolas', 'Courier New', monospace;");
+
+        // Register log appender AFTER logArea is created
         PrinterLogAppender.setLogArea(logArea);
         Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         PrinterLogAppender appender = new PrinterLogAppender();
         appender.start();
         rootLogger.addAppender(appender);
+
         primaryStage.setTitle("MPOS Printer Server");
 
         // Menu bar
@@ -42,12 +51,6 @@ public class PrinterApp extends Application {
         startStopButton.setOnAction(e -> toggleServer());
         HBox topBar = new HBox(10, startStopButton);
         topBar.setStyle("-fx-padding: 10;");
-
-        // Log area
-        logArea = new TextArea();
-        logArea.setEditable(false);
-        logArea.setWrapText(true);
-        logArea.setPrefHeight(400);
 
         BorderPane root = new BorderPane();
         root.setTop(menuBar);
@@ -76,7 +79,7 @@ public class PrinterApp extends Application {
                 startStopButton.setText("Stop Server");
                 serverRunning = true;
             } else {
-                showError("Failed to start server. Check configuration and port availability.");
+                showError("Failed to start server. Check configuration, port availability, and printer availability.");
             }
         }
     }

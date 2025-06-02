@@ -58,7 +58,7 @@ public class PosReceipt implements Printable {
 
       for (int i = 0; i < data.size(); i++) {
         ReceiptLineData line = data.get(i);
-        logger.info("line: {}", line.getContent());
+        logger.info(String.format("%03d: %s", i, line.getContent()));
         if (line.getType().equalsIgnoreCase(ReceiptLineData.TYPE_TXT)) {
           // do print with text
           escpos.writeLF(title, line.getContent());
