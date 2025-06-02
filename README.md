@@ -7,12 +7,35 @@ This application acts as a WebSocket server that receives print jobs (receipts) 
 
 ## How to Run
 
-### Without Compile
+### JavaFX GUI (Recommended)
+
+> **Requirements:**
+> - Java 11 or higher (Java 21+ recommended)
+> - Maven 3.6+
+
+To launch the graphical user interface (GUI):
+
+```sh
+mvn clean compile exec:java
+```
+
+This will start the JavaFX-based GUI, where you can:
+- Start/Stop the WebSocket server
+- View real-time logs
+- Edit printer configuration via the menu
+
+If you change the configuration, you must manually stop and restart the server for changes to take effect.
+
+### Command-Line (Legacy)
+
+You can still run the server without the GUI:
+
 ```sh
 mvn exec:java -Dexec.mainClass="main.java.id.modefashion.printer.App"
 ```
 
-### With Compile
+or
+
 ```sh
 mvn clean compile exec:java -Dexec.mainClass="main.java.id.modefashion.printer.App"
 ```

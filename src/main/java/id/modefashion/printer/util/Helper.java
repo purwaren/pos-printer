@@ -21,4 +21,13 @@ public class Helper {
   private static PrintService[] findAllPrinters() {
     return PrintServiceLookup.lookupPrintServices((DocFlavor) null, (AttributeSet) null);
   }
+
+  public static String[] getAllPrinterNames() {
+    PrintService[] printServices = findAllPrinters();
+    String[] names = new String[printServices.length];
+    for (int i = 0; i < printServices.length; i++) {
+      names[i] = printServices[i].getName();
+    }
+    return names;
+  }
 }
