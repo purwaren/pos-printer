@@ -56,6 +56,34 @@ or
 mvn clean compile exec:java -Dexec.mainClass="main.java.id.modefashion.printer.App"
 ```
 
+## Running with a Script
+
+You can create a simple script to run the application JAR on your platform:
+
+### Linux (Bash)
+Create a file named `run-printer.sh`:
+```bash
+#!/bin/bash
+java -jar printer-1.0.0.jar
+```
+Make it executable:
+```sh
+chmod +x run-printer.sh
+```
+Run it:
+```sh
+./run-printer.sh
+```
+
+### Windows (Batch)
+Create a file named `run-printer.bat`:
+```bat
+@echo off
+java -jar printer-1.0.0.jar
+pause
+```
+Double-click the batch file to run the application.
+
 ## Configuration
 Edit the `printer.properties` file to set your printer name, port, font family, and font size:
 
