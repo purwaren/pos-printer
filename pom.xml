@@ -5,7 +5,7 @@
   <groupId>id.modefashion</groupId>
   <artifactId>printer</artifactId>
   <packaging>jar</packaging>
-  <version>2.4-MPOS-PRINTER</version>
+  <version>1.0.0</version>
   <name>mpos-printer</name>
   <url>http://maven.apache.org</url>
   <dependencies>

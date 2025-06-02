@@ -1,6 +1,22 @@
 # mpos-printer-receipt
 
+![version](https://img.shields.io/badge/version-1.0.0-blue)
+
 MPOS Printer Implementation using Java Point of Sales Using escpos-coffee Library
+
+## Features (v1.0.0)
+- JavaFX GUI for cross-platform use
+- Start/Stop WebSocket server from GUI
+- Real-time log display in GUI (monospace, auto-scroll)
+- Printer selection from system dropdown
+- Edit and save printer configuration (port, printer, font family, font size) via GUI
+- Font family and size selection via dropdown (only valid values)
+- Configuration changes require manual server restart
+- WebSocket server for receiving print jobs
+- Supports print jobs in JSON and delimited string format
+- Receipt printing: text and barcode (image printing not yet implemented)
+- Logging and error handling
+- Example WebSocket client provided
 
 ## Overview
 This application acts as a WebSocket server that receives print jobs (receipts) and prints them using an ESC/POS-compatible printer. It is designed for easy integration with POS systems or any application that needs to print receipts remotely.
